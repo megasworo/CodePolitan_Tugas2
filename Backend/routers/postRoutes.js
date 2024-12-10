@@ -72,4 +72,21 @@ router.get("/", (req, res) => {
     .catch((err) => res.send(err));
 });
 
+// get all published posts
+router.get("/published", (req, res) => {
+  db.Post.findAll({ where: { status: "published" } })
+    .then((posts) => res.status(200).send(posts))
+    .catch((err) => res.send(err));
+});
+
+// get single post
+router.get("/single/:id", (req, res) => {
+  db.Post.findOne({
+    where: { id: req.params.id },
+    include: [db.User, db.Category],
+  })
+    .then((post) => res.status(200).send(post))
+    .catch((err) => res.send(err));
+});
+
 module.exports = router;
