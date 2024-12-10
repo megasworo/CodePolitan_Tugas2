@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../models");
 const multer = require("multer");
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     if (file.fieldname === "image") {
@@ -44,7 +45,6 @@ const upload = multer({
 
 // create new post
 router.post("/create", upload, (req, res) => {
-  console.log(req.body);
   db.Post.create({
     title1: req.body.title1,
     title2: req.body.title2,
